@@ -1,13 +1,11 @@
 package com.example.oshop.adapters
 
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.reminderslist.data.Task
-import com.example.reminderslist.databinding.ItemTaskBinding
-import com.example.reminderslist.utils.addStrikethrough
+import com.example.oshop.data.ItemTaskBinding
+import com.example.oshop.utils.addStrikethrough
 
 class TaskAdapter(
     var items: List<Task>,
