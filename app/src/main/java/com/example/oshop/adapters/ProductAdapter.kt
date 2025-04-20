@@ -5,17 +5,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.oshop.data.ItemTaskBinding
+import com.example.oshop.data.Product
 import com.example.oshop.utils.addStrikethrough
 
 class TaskAdapter(
-    var items: List<Task>,
+    var items: List<Product>,
     val onClick: (Int)-> Unit,
     val onDelete: (Int) -> Unit,
     val onCheck: (Int) -> Unit
 ) : Adapter<TaskViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TaskViewHolder(binding)
     }
 
@@ -40,15 +41,15 @@ class TaskAdapter(
         }
     }
 
-    fun updateItems(items: List<Task>) {
+    fun updateItems(items: List<Product>) {
         this.items = items
         notifyDataSetChanged()
     }
 }
 
-class TaskViewHolder(val binding: ItemTaskBinding) : ViewHolder(binding.root){
+class TaskViewHolder(val binding: ItemProductBinding) : ViewHolder(binding.root){
 
-    fun render(task: Task) {
+    fun render(task: Product) {
         if(task.done){
             binding.titleTextView.text = task.title.addStrikethrough()
         } else{
