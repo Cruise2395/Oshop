@@ -3,6 +3,9 @@ package com.example.oshop.activities
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +17,8 @@ import com.example.oshop.adapters.CategoryAdapter
 import com.example.oshop.data.Category
 import com.example.oshop.data.CategoryDAO
 import com.example.oshop.databinding.ActivityMainBinding
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,6 +34,11 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //configura el toolbar
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -46,6 +56,30 @@ class MainActivity : AppCompatActivity() {
         binding.addCategoryButton.setOnClickListener {
             val intent = Intent(this, CategoryActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean{
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.action_search ->{
+                Toast.makeText(this, "Buscar clcickeado", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_favorite -> {
+                Toast.makeText(this, "Favoritos clcickeado", Toast.LENGTH_SHORT).show()
+                true
+            }
+            android.R.id.home -> {
+                //accion para el boton de atras
+                onBackPressed()
+                true
+            }
+            else ->  super.onOptionsItemSelected(item)
         }
     }
 
