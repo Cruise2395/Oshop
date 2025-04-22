@@ -1,9 +1,11 @@
 package com.example.oshop.data
 
+
 import android.content.ContentValues
 import android.content.Context
 import android.util.Log
-import com.example.oshop.utils.DataBaseManager
+import com.example.oshop.utils.DatabaseManager
+
 
 class ProductDAO(context: Context) {
 
@@ -22,7 +24,7 @@ class ProductDAO(context: Context) {
         try {
             val newRowId = db.insert(Product.TABLE_NAME, null, values)
 
-            Log.i("DATABASE",  "Inserted task with id: $NewRowId")
+            Log.i("DATABASE",  "Inserted task with id: $newRowId")
         }catch (e: Exception){
             e.printStackTrace()
         } finally {
@@ -149,7 +151,7 @@ class ProductDAO(context: Context) {
 }
 
     fun findAllByCategory(category: Category): List<Product>{
-        val db = DataBaseManager.readableDatabase
+        val db = dataBaseManager.readableDatabase
 
         val projection = arrayOf(
             Product.COLUMN_NAME_ID,

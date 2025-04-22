@@ -3,6 +3,7 @@ package com.example.oshop.activities
 import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.oshop.R
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,10 +11,13 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.oshop.data.Category
 import com.example.oshop.data.CategoryDAO
 import com.example.oshop.databinding.ActivityCategoryBinding
-import com.example.oshop.
+
 
 class CategoryActivity : AppCompatActivity() {
 
+    companion object{
+        const val CATEGORY_ID = "CATEGORY_ID"
+    }
     lateinit var binding: ActivityCategoryBinding
     lateinit var categoryDAO: CategoryDAO
     lateinit var category: Category

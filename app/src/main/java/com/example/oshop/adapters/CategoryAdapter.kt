@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.reminderslist.data.Category
-import com.example.reminderslist.databinding.ItemCategoryBinding
-import com.example.reminderslist.databinding.ItemTaskBinding
-import com.example.reminderslist.utils.addStrikethrough
+import com.example.oshop.data.Category
+import com.example.oshop.databinding.ItemCategoryBinding
+import com.example.oshop.databinding.ItemProductBinding
+import com.example.oshop.utils.addStrikethrough
 
 class CategoryAdapter(
     var items: List<Category>,

@@ -1,6 +1,6 @@
 package com.example.oshop.activities
 
-import android.app.Activity
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -9,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.oshop.R
 import com.example.oshop.adapters.CategoryAdapter
+import com.example.oshop.data.Category
 import com.example.oshop.data.CategoryDAO
 import com.example.oshop.databinding.ActivityMainBinding
-import com.example.oshop.data.Category
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        //setContentView(binding.root)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -69,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(this, CategoryActivity::class.java)
         intent.putExtra(CategoryActivity.CATEGORY_ID, category.id)
-        startActivity()
+        startActivity(intent)
     }
 
     fun deleteCategory(position: Int){

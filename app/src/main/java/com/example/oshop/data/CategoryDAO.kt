@@ -1,9 +1,11 @@
 package com.example.oshop.data
 
+import DataBaseManager
 import android.content.ContentValues
 import android.content.Context
 import android.util.Log
-import com.example.oshop.utils.DataBaseManager
+import com.example.oshop.utils.DatabaseManager
+
 
 class CategoryDAO(context: Context) {
 
@@ -32,7 +34,7 @@ class CategoryDAO(context: Context) {
 
     fun update(category: Category) {
         //gets the data repository en write mode
-        val db = dataBaseManager.writableDatabse
+        val db = dataBaseManager.writableDatabase
 
         //Creates a new map ofg values, where column names are the keys
         val values = ContentValues().apply {
@@ -50,7 +52,7 @@ class CategoryDAO(context: Context) {
     }
 
     fun delete(category: Category) {
-        val db = dataBaseManager.writableDatabe
+        val db = dataBaseManager.writableDatabase
 
         try {
             val deletedRows = db.delete(Category.TABLE_NAME, "${Category.COLUMN_NAME_ID} = ${category.id}", null)

@@ -1,38 +1,74 @@
 package com.example.oshop.activities
 
-class ProductActivity : AppCompatActivity() {
-    lateinit var db: SQLiteHelper
+import android.content.Intent
+import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.oshop.R
+import com.example.oshop.adapters.ProductAdapter
+import com.example.oshop.data.Category
+import com.example.oshop.data.CategoryDAO
+import com.example.oshop.data.Product
+import com.example.oshop.data.ProductDAO
+import com.example.oshop.databinding.ActivityMainBinding
+import com.example.oshop.databinding.ActivityProductBinding
 
+
+        
+        
+class ProductActivity : AppCompatActivity() {
+
+    companion object{
+        const val CATEGORY_ID = "CATEGORY_ID"
+        const val TASK_ID = "TASK_ID"
+    }
+    lateinit var binding: ActivityProductBinding
+    lateinit var productDAO: ProductDAO
+    lateinit var product: Product
+    lateinit var categoryDAO: CategoryDAO
+    lateinit var category: Category
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        db = SQLiteHelper(this)
-        val productoId = intent.getIntExtra("productoId", -1)
+        enableEdgeToEdge()
 
-        val layout = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(16, 16, 16, 16)
+        binding = ActivityProductBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        //setContentView(R.layout.activity_product)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
+        
+        val id = intent.getLongExtra(TASK_ID, -1L)
+        val categoryId = intent.getLongExtra(CATEGORY_ID, -1L)
+        
+        productDAO = ProductDAO(this)
+        categoryDAO = CategoryDAO(this)
+        category = categoryDAO.findById(categoryId)!!
 
-        val nombreInput = EditText(this)
-        val precioInput = EditText(this).apply { inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL }
-        val btnGuardar = Button(this).apply { text = "Guardar" }
-
-        layout.addView(nombreInput)
-        layout.addView(precioInput)
-        layout.addView(btnGuardar)
-
-        setContentView(layout)
-
-        val producto = db.getProducto(productoId)
-        producto?.let {
-            nombreInput.setText(it.first)
-            precioInput.setText(it.second.toString())
+        if (id != -1L) {
+            product = productDAO.findById(id)!!
+            binding.titleEditText.setText(product.title)
+            supportActionBar?.title = "Editar tarea"
+        }else {
+            product = Product(-1L, "", false, category)
+            supportActionBar?.title = " Crear Tarea"
         }
+        binding.saveButton.setOnClickListener { 
+            val title = binding.titleEditText.text.toString()
+            product.title = title
 
-        btnGuardar.setOnClickListener {
-            val nombre = nombreInput.text.toString()
-            val precio = precioInput.text.toString().toDoubleOrNull() ?: 0.0
-            db.actualizarProducto(productoId, nombre, precio)
+            if (product.id != -1L) {
+                productDAO.update(product)
+            }else{
+                productDAO.insert(product)
+            }
             finish()
         }
     }
