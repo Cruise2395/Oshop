@@ -1,4 +1,4 @@
-ackpage com.example.oshop.utils
+package com.example.oshop.utils
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

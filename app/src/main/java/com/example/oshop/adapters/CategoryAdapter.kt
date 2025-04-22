@@ -39,8 +39,8 @@ class CategoryAdapter(
         }
     }
 
-    fun updateItems(items: List<Category>) {
-        this.items = items
+    fun updateItems(newItems: List<Category>) {
+        this.items = newItems
         notifyDataSetChanged()
     }
 }

@@ -1,10 +1,9 @@
 package com.example.oshop.data
 
-import DataBaseManager
 import android.content.ContentValues
 import android.content.Context
 import android.util.Log
-import com.example.oshop.utils.DatabaseManager
+import com.example.oshop.utils.DataBaseManager
 
 
 class CategoryDAO(context: Context) {
