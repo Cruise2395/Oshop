@@ -2,6 +2,9 @@ package com.example.oshop.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +20,6 @@ import com.example.oshop.data.ProductDAO
 import com.example.oshop.databinding.ActivityMainBinding
 import com.example.oshop.databinding.ActivityProductBinding
 
-
-        
-        
 class ProductActivity : AppCompatActivity() {
 
     companion object{
@@ -38,6 +38,10 @@ class ProductActivity : AppCompatActivity() {
 
         binding = ActivityProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         //setContentView(R.layout.activity_product)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -72,4 +76,30 @@ class ProductActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.secondary_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressedDispatcher.onBackPressed()
+                true
+            }
+            R.id.action_search -> {
+                Toast.makeText(this, "Buscar clickeado", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_favorite -> {
+                Toast.makeText(this, "Favorito clickeado", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
+
 }

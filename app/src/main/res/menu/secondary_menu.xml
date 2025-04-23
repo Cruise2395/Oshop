@@ -9,4 +9,16 @@
         app:showAsAction="ifRoom"
         app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
+    <item
+        android:id="@+id/action_favorite"
+        android:title="Favoritos"
+        android:icon="@drawable/ic_favorite"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_back"
+        android:title="Atrás"
+        android:icon="@drawable/ic_back"
+        app:showAsAction="ifRoom" />
+
 </menu>

@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Añadir Categoria:"
+        android:text="@string/add_category"
         android:textAlignment="center"
         android:textSize="20sp"/>
 
@@ -20,14 +20,14 @@
         android:id="@+id/titleEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Introduce Categoria del Producto"
+        android:hint="@string/add_product_category"
         android:textSize="18dp"/>
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Guardar"
+        android:text="@string/save"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="32dp" />
 

@@ -26,7 +26,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        tools:text="Comprar materiales"/>
+        tools:text="@string/product"/>
 
     <Button
         android:id="@+id/deleteButton"

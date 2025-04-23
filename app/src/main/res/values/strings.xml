@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Oshop</string>
+    <string name="my_categories">My Categories</string>
+    <string name="add_category">Add Category</string>
+    <string name="add_product_category">Add Product Category</string>
+    <string name="save">Save</string>
+    <string name="product">Product</string>
+    <string name="product_to_add">Which product you want to add?</string>
+    <string name="layout_name">Display name</string>
+    <string name="category_name">Category name</string>
 </resources>

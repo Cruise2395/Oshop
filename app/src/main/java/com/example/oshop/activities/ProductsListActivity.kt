@@ -2,6 +2,9 @@ package com.example.oshop.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -33,26 +36,39 @@ class ProductsListActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        //inflar el layout con view binding
         binding = ActivityProductsListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+
+        //configuracion del tool bar
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ""
+
+        //compatibilidad con windowinsets usando binding.main
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
+        //obtener id de categoria desde el intent
         val id = intent.getLongExtra(CATEGORY_ID, -1L)
 
+        //inicializar DAOS
         productDAO = ProductDAO(this)
         categoryDAO = CategoryDAO(this)
         category= categoryDAO.findById(id)!!
+
+        //titulo de la pantalla
         supportActionBar?.title = category.title
 
+        //configura recycler view
         adapter = ProductAdapter(emptyList(), ::editProduct, ::deleteProduct, ::checkProduct)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
+        // boton de agregar producto
         binding.addProductButton.setOnClickListener{
             val intent = Intent(this, ProductActivity::class.java)
             intent.putExtra(ProductActivity.CATEGORY_ID, category.id)
@@ -72,7 +88,6 @@ class ProductsListActivity: AppCompatActivity() {
 
     fun checkProduct(position: Int) {
         val product = productList[position]
-
         product.done = !product.done
         productDAO.update(product)
         refreshData()
@@ -80,7 +95,6 @@ class ProductsListActivity: AppCompatActivity() {
 
     fun editProduct(position: Int) {
         val product = productList[position]
-
         val intent = Intent(this, ProductActivity::class.java)
         intent.putExtra(ProductActivity.TASK_ID, product.id)
         intent.putExtra(ProductActivity.CATEGORY_ID, category.id)
@@ -101,4 +115,30 @@ class ProductsListActivity: AppCompatActivity() {
             .setCancelable(false)
             .show()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.secondary_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressedDispatcher.onBackPressed()
+                true
+            }
+            R.id.action_search -> {
+                // Acción para buscar
+                Toast.makeText(this, "Buscar clickeado", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_favorite -> {
+                // Acción para favorito
+                Toast.makeText(this, "Favorito clickeado", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }
